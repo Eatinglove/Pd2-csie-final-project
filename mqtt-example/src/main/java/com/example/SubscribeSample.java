@@ -44,6 +44,11 @@ public class SubscribeSample {
           });
            client.connect(options);
            client.subscribe(topic, qos);
+
+           // 等待一段時間，接收消息，然後斷開連接
+            Thread.sleep(60000); // 等待 60 秒鐘
+            client.disconnect();
+            System.out.println("Disconnected from broker.");
       } catch (Exception e) {
            e.printStackTrace();
       }
