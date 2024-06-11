@@ -12,6 +12,7 @@ public class SubscribeSample {
    public static void main(String[] args) {
        // MQTT 代理相關設置
        String broker = "tcp://broker.emqx.io:1883"; // MQTT 代理的地址
+       String topic="hi";
        String topic1 = "mqtt/test1"; // 訂閱的主題
        String topic2 = "mqtt/test2"; //test topic
        String username = "subscriber"; // 用戶名
@@ -43,7 +44,7 @@ public class SubscribeSample {
                    System.out.println("message content: " + new String(message.getPayload()));
 
                     // 如果收到了 topic2 的訊息
-                    if (topic.equals(topic2)) {
+                    /*if (topic.equals(topic2)) {
                         // 提示用戶輸入
                         System.out.println("Do you want to unsubscribe from topic2? (y/n)");
                         Scanner scanner = new Scanner(System.in);
@@ -57,7 +58,7 @@ public class SubscribeSample {
                                 e.printStackTrace();
                             }
                         }
-                    }
+                    }*/
 
 
               }
@@ -71,6 +72,7 @@ public class SubscribeSample {
            // 連接到 MQTT 代理
            client.connect(options);
            // 訂閱指定主題
+           client.subscribe(topic,qos);
            client.subscribe(topic1, qos);
            client.subscribe(topic2, qos);
 
