@@ -14,7 +14,7 @@ public class PublishSample {
         // 定義 MQTT 代理、主題、用戶名、密碼、客戶端ID和消息內容
         String broker = "tcp://broker.emqx.io:1883";
         String topic = "mqtt/test";
-        String username = "emqx";
+        String username = "publisher";
         String password = "public";
         String clientid = "publish_client";
         //String content = "456";//test msg
@@ -45,6 +45,7 @@ public class PublishSample {
 
             // 發佈消息到指定的主題
             client.publish(topic, message);
+            message.setRetained(true); // 設置為保留消息
             System.out.println("Message published");
             System.out.println("topic: " + topic);
             System.out.println("message content: " + content);
