@@ -25,8 +25,11 @@ public class PublishSample {
 
         try {
             Scanner scanner = new Scanner(System.in);//使用者輸入訊息
+            System.out.println("enter topic");
+            topic=scanner.nextLine();
             System.out.print("Enter message content: ");//彈出較使用者輸入他想要的訊息
             String content = scanner.nextLine(); //沒什麼好說的
+            
             scanner.close();
 
             // 創建消息並設置 QoS（服務質量等級）

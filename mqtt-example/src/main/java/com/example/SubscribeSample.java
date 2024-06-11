@@ -13,7 +13,7 @@ public class SubscribeSample {
        // MQTT 代理相關設置
        String broker = "tcp://broker.emqx.io:1883"; // MQTT 代理的地址
        String topic="hi";
-       String topic1 = "mqtt/test1"; // 訂閱的主題
+       String topic1 = "abc"; // 訂閱的主題
        String topic2 = "mqtt/test2"; //test topic
        String username = "subscriber"; // 用戶名
        String password = "public"; // 密碼
@@ -77,7 +77,7 @@ public class SubscribeSample {
            client.subscribe(topic2, qos);
 
            // 等待一段時間，接收消息，然後斷開連接
-           Thread.sleep(30000); // 等待 30 秒鐘
+           Thread.sleep(60000); // 等待 30 秒鐘
            client.disconnect(); // 斷開連接
            System.out.println("Disconnected from broker.");
       } catch (Exception e) {
