@@ -5,10 +5,10 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
-
+//test
 public class PublishSample {
 
-   public static void main(String[] args) {
+   public static void main(String[] args) { 
 
        String broker = "tcp://broker.emqx.io:1883";
        String topic = "mqtt/test";
