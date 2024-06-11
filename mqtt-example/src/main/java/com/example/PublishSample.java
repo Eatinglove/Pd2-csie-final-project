@@ -4,7 +4,7 @@ import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import java.util.Scanner;
-
+//只有發布功能
 public class PublishSample {
 
     private static final String hostUrl = "tcp://broker.emqx.io:1883";
