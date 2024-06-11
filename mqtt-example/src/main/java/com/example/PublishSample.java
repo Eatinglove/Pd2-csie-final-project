@@ -33,8 +33,15 @@ public class PublishSample {
 
             // 連接到 MQTT 代理
             client.connect(options);
+            if(client.isConnected()){
+                System.out.println("connected");
+            }else{
+                System.out.println("not connected");
+            }
 
             Scanner scanner = new Scanner(System.in);//使用者輸入訊息
+            //System.out.print("Enter the topic (test1/test2): ");
+            //String topic = "mqtt/"+scanner.nextLine();
             System.out.print("Enter message content: ");//彈出較使用者輸入他想要的訊息
             String content = scanner.nextLine(); //沒什麼好說的
             scanner.close();
@@ -45,7 +52,7 @@ public class PublishSample {
 
             // 發佈消息到指定的主題
             client.publish(topic, message);
-            message.setRetained(true); // 設置為保留消息
+            //message.setRetained(true); // 設置為保留消息
             System.out.println("Message published");
             System.out.println("topic: " + topic);
             System.out.println("message content: " + content);

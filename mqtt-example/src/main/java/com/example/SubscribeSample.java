@@ -1,5 +1,7 @@
 package com.example;
 
+import java.util.Scanner;
+
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
@@ -10,7 +12,8 @@ public class SubscribeSample {
    public static void main(String[] args) {
        // MQTT 代理相關設置
        String broker = "tcp://broker.emqx.io:1883"; // MQTT 代理的地址
-       String topic = "mqtt/test"; // 訂閱的主題
+       String topic1 = "mqtt/test1"; // 訂閱的主題
+       String topic2 = "mqtt/test2"; //test topic
        String username = "subscriber"; // 用戶名
        String password = "public"; // 密碼
        String clientid = "subscribe_client"; // 客戶端 ID
@@ -38,6 +41,25 @@ public class SubscribeSample {
                    System.out.println("topic: " + topic);
                    System.out.println("Qos: " + message.getQos());
                    System.out.println("message content: " + new String(message.getPayload()));
+
+                    // 如果收到了 topic2 的訊息
+                    if (topic.equals(topic2)) {
+                        // 提示用戶輸入
+                        System.out.println("Do you want to unsubscribe from topic2? (y/n)");
+                        Scanner scanner = new Scanner(System.in);
+                        String input = scanner.nextLine().toLowerCase();
+                        // 如果輸入了 y，則取消訂閱 topic2 主題
+                        if (input.equals("y")) {
+                            try {
+                                client.unsubscribe(topic2);
+                                System.out.println("Unsubscribed from topic2.");
+                            } catch (MqttException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+
               }
 
                // 當消息傳遞完成時調用
@@ -49,7 +71,8 @@ public class SubscribeSample {
            // 連接到 MQTT 代理
            client.connect(options);
            // 訂閱指定主題
-           client.subscribe(topic, qos);
+           client.subscribe(topic1, qos);
+           client.subscribe(topic2, qos);
 
            // 等待一段時間，接收消息，然後斷開連接
            Thread.sleep(30000); // 等待 30 秒鐘
