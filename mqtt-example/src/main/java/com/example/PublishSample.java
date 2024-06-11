@@ -5,44 +5,52 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
-//test
+
 public class PublishSample {
 
-   public static void main(String[] args) { 
+    public static void main(String[] args) { 
 
-       String broker = "tcp://broker.emqx.io:1883";
-       String topic = "mqtt/test";
-       String username = "emqx";
-       String password = "public";
-       String clientid = "publish_client";
-       String content = "456";
-       int qos = 0;
+        // 定義 MQTT 代理、主題、用戶名、密碼、客戶端ID和消息內容
+        String broker = "tcp://broker.emqx.io:1883";
+        String topic = "mqtt/test";
+        String username = "emqx";
+        String password = "public";
+        String clientid = "publish_client";
+        String content = "456";
+        int qos = 0;
 
-       try {
-           MqttClient client = new MqttClient(broker, clientid, new MemoryPersistence());
-           // ?接??
-           MqttConnectOptions options = new MqttConnectOptions();
-           // ?置用?名和密?
-           options.setUserName(username);
-           options.setPassword(password.toCharArray());
-           options.setConnectionTimeout(60);
-            options.setKeepAliveInterval(60);
-           // ?接
-           client.connect(options);
-           // ?建消息并?置 QoS
-           MqttMessage message = new MqttMessage(content.getBytes());
-           message.setQos(qos);
-           // ?布消息
-           client.publish(topic, message);
-           System.out.println("Message published");
-           System.out.println("topic: " + topic);
-           System.out.println("message content: " + content);
-           // ???接
-           client.disconnect();
-           // ??客?端
-           client.close();
-      } catch (MqttException e) {
-           throw new RuntimeException(e);
-      }
-  }
+        try {
+            // 創建一個 MQTT 客戶端實例
+            MqttClient client = new MqttClient(broker, clientid, new MemoryPersistence());
+
+            // 設置連接選項
+            MqttConnectOptions options = new MqttConnectOptions();
+            options.setUserName(username); // 設置用戶名
+            options.setPassword(password.toCharArray()); // 設置密碼
+            options.setConnectionTimeout(60); // 設置連接超時時間（秒）
+            options.setKeepAliveInterval(60); // 設置保持連接間隔（秒）
+
+            // 連接到 MQTT 代理
+            client.connect(options);
+
+            // 創建消息並設置 QoS（服務質量等級）
+            MqttMessage message = new MqttMessage(content.getBytes());
+            message.setQos(qos);
+
+            // 發佈消息到指定的主題
+            client.publish(topic, message);
+            System.out.println("Message published");
+            System.out.println("topic: " + topic);
+            System.out.println("message content: " + content);
+
+            // 斷開連接
+            client.disconnect();
+
+            // 關閉客戶端
+            client.close();
+        } catch (MqttException e) {
+            // 當發生 MQTT 例外時，拋出運行時異常
+            throw new RuntimeException(e);
+        }
+    }
 }
