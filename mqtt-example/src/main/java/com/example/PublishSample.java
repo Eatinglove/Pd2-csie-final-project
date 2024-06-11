@@ -5,6 +5,7 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import java.util.Scanner;
 
 public class PublishSample {
 
@@ -16,7 +17,7 @@ public class PublishSample {
         String username = "emqx";
         String password = "public";
         String clientid = "publish_client";
-        String content = "456";
+        //String content = "456";//test msg
         int qos = 0;
 
         try {
@@ -32,6 +33,11 @@ public class PublishSample {
 
             // 連接到 MQTT 代理
             client.connect(options);
+
+            Scanner scanner = new Scanner(System.in);//使用者輸入訊息
+            System.out.print("Enter message content: ");//彈出較使用者輸入他想要的訊息
+            String content = scanner.nextLine(); //沒什麼好說的
+            scanner.close();
 
             // 創建消息並設置 QoS（服務質量等級）
             MqttMessage message = new MqttMessage(content.getBytes());
